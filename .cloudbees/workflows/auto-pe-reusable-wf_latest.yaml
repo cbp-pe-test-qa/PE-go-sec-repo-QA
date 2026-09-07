@@ -1,0 +1,21 @@
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: workflow
+name: auto-pe-reusable-wf_latest
+on:
+  workflow_call: {}
+
+permissions:
+  scm-token-own: read
+  scm-token-org: read
+
+jobs:
+  build: 
+      steps:
+        - name: Build something
+          uses: docker://alpine:latest
+          shell: sh
+          run: echo "Building..."
+
+
+  call-nested-reusable:
+    uses: .cloudbees/workflows/auto-pe-reusable-wf-2.yaml
