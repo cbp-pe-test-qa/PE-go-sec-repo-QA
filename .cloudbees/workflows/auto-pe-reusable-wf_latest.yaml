@@ -3,7 +3,7 @@ kind: workflow
 name: auto-pe-reusable-wf_latest
 on:
   workflow_call: {}
-
+  workflow_dispatch:
 permissions:
   scm-token-own: read
   scm-token-org: read
