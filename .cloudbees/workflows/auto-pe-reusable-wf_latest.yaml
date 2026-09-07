@@ -15,7 +15,12 @@ jobs:
           uses: docker://alpine:latest
           shell: sh
           run: echo "Building..."
-
+  policy-exit:
+    needs: build
+    uses: cloudbees-io/policy-utils/evaluate-policy-context/workflow.yml@v2
+    with:
+      checkpoint-type: workflow
+      checkpoint-position: within
 
   call-nested-reusable:
     uses: .cloudbees/workflows/auto-pe-reusable-wf-2.yaml
