@@ -3,17 +3,15 @@ kind: workflow
 name: auto-pe-reusable-wf
 on:
   workflow_call: {}
-
+  workflow_dispatch:
 permissions:
   scm-token-own: read
   scm-token-org: read
-
 jobs:
   reusable-job:
     steps:
       - name: Reusable workflow step
         uses: docker://alpine:latest
         run: echo "reusable workflow (level 1) running"
-
   call-nested-reusable:
     uses: .cloudbees/workflows/auto-pe-reusable-wf-2.yaml
