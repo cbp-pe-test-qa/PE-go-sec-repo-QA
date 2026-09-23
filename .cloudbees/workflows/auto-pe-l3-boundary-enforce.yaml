@@ -8,6 +8,6 @@ on:
 jobs:
   run:
     steps:
-      - name: Enforce boundary test
-        uses: docker://alpine:3.18
-        run: echo "auto-pe-l3-boundary-enforce workflow executed"
+    - name: Run step
+      uses: docker://alpine:3.18
+      run: echo "scan-job running"
