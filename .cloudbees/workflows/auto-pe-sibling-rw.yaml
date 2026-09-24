@@ -1,0 +1,15 @@
+apiVersion: automation.cloudbees.io/v1alpha1                                                                                                                                                             
+kind: workflow                                                                                                                                                                                           
+name: auto-pe-sibling-rw                                                                                                                                                                                 
+                                                                                                                                                                                                          
+on:                                                                                                                                                                                                      
+  workflow_call:                                                                                                                                                                                         
+                                                                                                                                                                                                          
+jobs:                                                                                                                                                                                                    
+  reusable-job:                                                                                                                                                                                          
+    steps:                                                                                                                                                                                               
+      - name: Say hello                                                                                                                                                                                  
+        uses: docker://golang:1.20.3-alpine3.17                                                                                                                                                          
+        shell: sh                                                                                                                                                                                        
+        run: |                                                                                                                                                                                           
+          echo "sibling reusable workflow — no-op, exists only as a BatchDiscoverPolicies boundary target" 
