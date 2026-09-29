@@ -4,10 +4,34 @@ name: auto-pe-l3-boundary-enforce
 
 on:
   workflow_dispatch:
-
 jobs:
   run:
+    outputs:
+      policy-subject: ${{ steps.make-input.outputs.policy-subject }}
     steps:
-    - name: Run step
-      uses: docker://alpine:3.18
-      run: echo "scan-job running"
+      - id: make-input
+        name: Build a test policy subject
+        uses: docker://alpine:latest
+        shell: sh
+        run: |
+          CRITICAL=0
+          MEDIUM=21
+          HIGH=11
+          LOW=0
+          TOTAL=$(( $CRITICAL + $HIGH + $MEDIUM + $LOW ))
+          cat > "$CLOUDBEES_OUTPUTS/policy-subject" << EOF
+          [{
+            "type": "vulnerability_scan",
+            "data": {
+              "summary": {
+                "by_severity": {
+                  "total": ${TOTAL},
+                  "critical": ${CRITICAL},
+                  "high":${HIGH},
+                  "medium": ${MEDIUM},
+                  "low": ${LOW}
+                }
+              }
+            }
+          }]
+          EOF
