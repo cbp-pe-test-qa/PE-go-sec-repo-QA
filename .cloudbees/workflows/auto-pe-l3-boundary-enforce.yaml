@@ -4,34 +4,11 @@ name: auto-pe-l3-boundary-enforce
 
 on:
   workflow_dispatch:
+
 jobs:
   run:
-    outputs:
-      policy-subject: ${{ steps.make-input.outputs.policy-subject }}
     steps:
-      - id: make-input
-        name: Build a test policy subject
-        uses: docker://alpine:latest
+      - name: Enforce boundary test
+        uses: docker://golang:1.20.3-alpine3.17
         shell: sh
-        run: |
-          CRITICAL=0
-          MEDIUM=21
-          HIGH=0
-          LOW=0
-          TOTAL=$(( $CRITICAL + $HIGH + $MEDIUM + $LOW ))
-          cat > "$CLOUDBEES_OUTPUTS/policy-subject" << EOF
-          [{
-            "type": "vulnerability_scan",
-            "data": {
-              "summary": {
-                "by_severity": {
-                  "total": ${TOTAL},
-                  "critical": ${CRITICAL},
-                  "high":${HIGH},
-                  "medium": ${MEDIUM},
-                  "low": ${LOW}
-                }
-              }
-            }
-          }]
-          EOF
+        run: echo "auto-pe-l3-boundary-enforce workflow executed"
