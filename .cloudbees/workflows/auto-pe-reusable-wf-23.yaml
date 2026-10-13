@@ -1,0 +1,11 @@
+  apiVersion: automation.cloudbees.io/v1alpha1
+  kind: workflow
+  name: auto-pe-reusable-wf-23
+  on:
+    workflow_call: {}
+  jobs:
+    rw2-job:
+      steps:
+        - name: Run
+          uses: docker://alpine:3.19
+          run: echo "nested reusable workflow job"
